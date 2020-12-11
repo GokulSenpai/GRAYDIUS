@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class LevelOneCounter : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class LevelOneCounter : MonoBehaviour
         count += 1;
         if (count == 7)
         {
-            
+            GameObject.Find("LevelZeroEndTimelineObject").GetComponent<PlayableDirector>().Play();
             // FADE --------------    LevelZeroFadeOut.LevelZeroFade();
             //GameObject.Find("Bird").GetComponent<SpriteRenderer>().enabled = true;
             //sr.color = defaultColour;

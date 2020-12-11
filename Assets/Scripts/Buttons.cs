@@ -35,4 +35,9 @@ public class Buttons : MonoBehaviour
     {
         SceneManager.LoadScene(5);
     }
+    
+    public void OnSkipButtonPressLevelZero()
+    {
+        SceneManager.LoadScene(6);
+    }
 }

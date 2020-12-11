@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b531fe657c5e90a4d85df3d649e97809, type: 3}
-  m_Color: {r: 0.6320754, g: 0.14012992, b: 0.25938722, a: 1}
+  m_Color: {r: 0.6603774, g: 0.6603774, b: 0.6603774, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -99,7 +99,6 @@ MonoBehaviour:
   ChasingRange: 4
   SpawningRange: 4.5
   speed: 3
-  Player: {fileID: 3292567358049135971, guid: 026d04cbf9adbd94ab5bd95333d32dfc, type: 3}
 --- !u!61 &6097928529935660748
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -16,7 +16,7 @@ public class RayCastTeleport : MonoBehaviour
 
     LineRenderer lineRender;
     SpriteRenderer sr;
-
+    
     public GameObject lineGameObject;
     
     private static readonly int IsIdle = Animator.StringToHash("isIdle");
@@ -70,7 +70,7 @@ public class RayCastTeleport : MonoBehaviour
             StartCoroutine(Dissolve.Disappear(60));
             animator.SetTrigger(IsJumping);
             canJump = false;
-            temp = rayHit.collider.gameObject;
+            temp = rayHit.collider.gameObject; 
             jump1.Play();
             StartCoroutine(DelayAnimation());
         }
