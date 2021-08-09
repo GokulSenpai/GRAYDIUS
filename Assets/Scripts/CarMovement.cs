@@ -1,18 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CarMovement : MonoBehaviour
 {
     public Animator anim;
     public static bool carMove = false;
+    private static readonly int MoveCar = Animator.StringToHash("MoveCar");
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if(carMove)
         {
-            anim.SetTrigger("MoveCar");
+            anim.SetTrigger(MoveCar);
         }
     }
 }

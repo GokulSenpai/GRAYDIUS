@@ -8,7 +8,7 @@ public class Dialog : MonoBehaviour
 {
     public TextMeshProUGUI textDisplay;
     public string[] sentences;
-    private int index;
+    private int _index;
     public float typingSpeed;
     public Animator panelAnimator;
 
@@ -17,6 +17,9 @@ public class Dialog : MonoBehaviour
     public GameObject continueButton;
     public GameObject skipButton;
     public Animator textDisplayAnim;
+    
+    private static readonly int SceneFadeOut = Animator.StringToHash("SceneFadeOut");
+    private static readonly int Change = Animator.StringToHash("Change");
 
     private void Start()
     {
@@ -25,7 +28,7 @@ public class Dialog : MonoBehaviour
 
     private void Update()
     {
-        if (textDisplay.text == sentences[index])
+        if (textDisplay.text == sentences[_index])
         {
             continueButton.SetActive(true);
         }
@@ -33,7 +36,7 @@ public class Dialog : MonoBehaviour
 
     IEnumerator Type()
     {
-        foreach(char letter in sentences[index].ToCharArray())
+        foreach(char letter in sentences[_index].ToCharArray())
         {
             textDisplay.text += letter;
             yield return new WaitForSeconds(0.02f);
@@ -42,16 +45,16 @@ public class Dialog : MonoBehaviour
 
     public void NextSentence()
     {
-        textDisplayAnim.SetTrigger("Change");
+        textDisplayAnim.SetTrigger(Change);
         continueButton.SetActive(false);
 
-        if(index < sentences.Length - 1)
+        if(_index < sentences.Length - 1)
         {
-            index++;
+            _index++;
             textDisplay.text = "";
             StartCoroutine(Type());
         }
-        else if(index == sentences.Length - 1)
+        else if(_index == sentences.Length - 1)
         {
             textDisplay.text = "";
             skipButton.SetActive(false);
@@ -71,7 +74,7 @@ public class Dialog : MonoBehaviour
         {
             CarMovement.carMove = true;
         }
-        panelAnimator.SetTrigger("SceneFadeOut");
+        panelAnimator.SetTrigger(SceneFadeOut);
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }

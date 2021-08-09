@@ -3,19 +3,19 @@ using UnityEngine;
 
 public class RayCastTeleport : MonoBehaviour
 {
-    Animator animator;
+    private Animator _animator;
 
     public AudioSource jump1;
     public AudioSource jump2;
 
-    bool canJump = true;
+    private bool _canJump = true;
 
     public float rayCastRange = 9f;
 
-    GameObject temp;
+    private GameObject _temp;
 
-    LineRenderer lineRender;
-    SpriteRenderer sr;
+    private LineRenderer _lineRender;
+    private SpriteRenderer _sr;
     
     public GameObject lineGameObject;
     
@@ -24,11 +24,11 @@ public class RayCastTeleport : MonoBehaviour
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
-        sr = GetComponent<SpriteRenderer>();
-        lineRender = lineGameObject.GetComponent<LineRenderer>();
-        lineRender.enabled = false;
-        lineRender.useWorldSpace = true;
+        _animator = GetComponent<Animator>();
+        _sr = GetComponent<SpriteRenderer>();
+        _lineRender = lineGameObject.GetComponent<LineRenderer>();
+        _lineRender.enabled = false;
+        _lineRender.useWorldSpace = true;
     }
 
     private void Update()
@@ -43,34 +43,34 @@ public class RayCastTeleport : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {    
-            lineRender.SetPosition(0, lineGameObject.transform.position);
+            _lineRender.SetPosition(0, lineGameObject.transform.position);
 
-            if (rayHit && rayHit.collider.gameObject.tag == "Teleport")
+            if (rayHit && rayHit.collider.gameObject.CompareTag("Teleport"))
             {
-                lineRender.SetPosition(1, rayHit.collider.gameObject.transform.position);
+                _lineRender.SetPosition(1, rayHit.collider.gameObject.transform.position);
             }
             else
             {
-                lineRender.SetPosition(1, Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                _lineRender.SetPosition(1, Camera.main.ScreenToWorldPoint(Input.mousePosition));
             }
 
-            lineRender.enabled = true;
+            _lineRender.enabled = true;
         }
         if(Input.GetMouseButtonUp(0))
         {
-            lineRender.enabled = false;
+            _lineRender.enabled = false;
             Teleport(rayHit);
         }
     }
 
     private void Teleport(RaycastHit2D rayHit)
     { 
-        if (rayHit && rayHit.collider.gameObject.tag == "Teleport" && canJump)
+        if (rayHit && rayHit.collider.gameObject.CompareTag("Teleport") && _canJump)
         {
             StartCoroutine(Dissolve.Disappear(60));
-            animator.SetTrigger(IsJumping);
-            canJump = false;
-            temp = rayHit.collider.gameObject; 
+            _animator.SetTrigger(IsJumping);
+            _canJump = false;
+            _temp = rayHit.collider.gameObject; 
             jump1.Play();
             StartCoroutine(DelayAnimation());
         }
@@ -81,12 +81,12 @@ public class RayCastTeleport : MonoBehaviour
         jump2.PlayDelayed(0.21f);
         yield return new WaitForSeconds(0.77f);
 
-        transform.position = temp.transform.position;
-        transform.rotation = temp.transform.rotation;
+        transform.position = _temp.transform.position;
+        transform.rotation = _temp.transform.rotation;
 
         StartCoroutine(Dissolve.Reappear(60));
 
-        animator.SetBool(IsIdle, true);
-        canJump = true;
+        _animator.SetBool(IsIdle, true);
+        _canJump = true;
     }
 }
